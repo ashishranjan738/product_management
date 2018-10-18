@@ -1,5 +1,3 @@
-// Start of the application
-
 import "package:flutter/material.dart";
 import "./products_manager.dart";
 
@@ -19,7 +17,7 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text("Home"),
         ),
-        body: ProductManager("Food Tester")
+        body: ProductManager()
       ),
     );
   }
