@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "pages/home.dart";
 import "pages/products_admin.dart";
 import "pages/product.dart";
+import "pages/auth.dart";
 
 main() {
   return runApp(MyApp());
@@ -15,9 +16,9 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  List<Map<String, String>> _products = [];
+  List<Map<String, dynamic>> _products = [];
 
-  void addProduct(Map<String, String> item) {
+  void addProduct(Map<String, dynamic> item) {
     setState(() {
       _products.add(item);
       print(_products);
@@ -39,9 +40,10 @@ class _MyAppState extends State<MyApp> {
       ),
       // home: LoginPage(),
       routes: {
-        '/': (BuildContext context) =>
-            HomePage(_products, addProduct, deleteProduct),
-        '/admin': (BuildContext context) => ProductsAdminPage(),
+        '/': (BuildContext context) => LoginPage(),
+        '/home': (BuildContext context) => HomePage(_products),
+        '/admin': (BuildContext context) =>
+            ProductsAdminPage(addProduct, deleteProduct),
       },
       onGenerateRoute: (RouteSettings settings) {
         final List<String> pathElements = settings.name.split("/");
@@ -51,15 +53,15 @@ class _MyAppState extends State<MyApp> {
           return null;
         }
         final int index = int.parse(pathElements[2]);
-        
+
         return MaterialPageRoute<bool>(
             builder: (BuildContext context) => ProductPage(
                 _products[index]['title'], _products[index]['image']));
       },
       onUnknownRoute: (RouteSettings settings) {
         return MaterialPageRoute(
-            builder: (BuildContext context) =>
-                HomePage(_products, addProduct, deleteProduct));
+          builder: (BuildContext context) => HomePage(_products),
+        );
       },
     );
   }

@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import '../products_manager.dart';
 
 class HomePage extends StatelessWidget {
-  final List<Map<String, String>> _products;
-  final Function addProducts, deleteProducts;
+  final List<Map<String, dynamic>> _products;
 
-  HomePage(this._products, this.addProducts, this.deleteProducts);
+  HomePage(this._products);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +26,7 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text("Home"),
       ),
-      body: ProductManager(_products, addProducts, deleteProducts),
+      body: ProductManager(_products),
     );
   }
 }
